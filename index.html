@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Embedded Python Tutor</title>
-    <style>
-        /* Style to hide scrollbar in iframe */
-        iframe {
-            overflow: hidden;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skulpt Python on GitHub Pages</title>
+    <!-- Step 1: Include Skulpt Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skulpt/2.0.2/skulpt.min.js"></script>
+    <!-- Step 2: Include Skulpt Stdlib -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skulpt/2.0.2/skulpt-stdlib.js"></script>
 </head>
 <body>
+    <h1>Skulpt Python on GitHub Pages</h1>
+    <!-- Step 3: Write Python Code -->
+    <script type="text/python">
+        # Step 4: Write Python code to display "Hello, World!"
+        print("Hello World")
+    </script>
+    <!-- Step 5: Display Output -->
+    <div id="output"></div>
+    <!-- Step 6: Run Python Code -->
+    <script type="text/javascript">
+        // Capture the output of the Python code
+        var output = document.getElementById("output");
 
-<!-- Disable right-click -->
-<script>
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    }, false);
-</script>
+        // Redirect Skulpt's print output to the HTML element
+        function builtinRead(x) {
+            if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+                throw "File not found: '" + x + "'";
+            return Sk.builtinFiles["files"][x];
+        }
 
-<!-- Embed Python Tutor with restricted attributes -->
-<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=print%28%22Hello%20World%22%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=1&heapPrimitives=nevernest&origin=opt-frontend.js&py=311&rawInputLstJSON=%5B%5D&textReferences=false" sandbox="allow-scripts" allowfullscreen> </iframe>
-
+        // Execute the Python code and display the output
+        Sk.configure({
+            output: function(text) {
+                output.innerHTML += text + "<br>";
+            },
+            read: builtinRead
+        });
+        Sk.misceval.asyncToPromise(function() {
+            return Sk.importMainWithBody("<stdin>", false, "print('Hello World')");
+        });
+    </script>
 </body>
 </html>
