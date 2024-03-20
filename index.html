@@ -1,66 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karan and Coding</title>
+    <title>Embedded Python Tutor</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center; /* Center the title */
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-        nav ul li:last-child {
-            margin-right: 0;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-        }
-        main {
-            padding: 20px;
+        /* Style to hide scrollbar in iframe */
+        iframe {
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Karan and Coding</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#programming">My Computer Science/Programming Knowledge</a></li>
-            <li><a href="#math">My Mathematical Knowledge</a></li>
-            <li><a href="#projects">My Projects</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section id="programming">
-            <h2>My Computer Science/Programming Knowledge</h2>
-            <!-- Add your content related to computer science and programming here -->
-        </section>
-        <section id="math">
-            <h2>My Mathematical Knowledge</h2>
-            <!-- Add your content related to mathematics here -->
-        </section>
-        <section id="projects">
-            <h2>My Projects</h2>
-            <!-- Add information about your projects here -->
-        </section>
-    </main>
+
+<!-- Disable right-click -->
+<script>
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    }, false);
+</script>
+
+<!-- Embed Python Tutor with restricted attributes -->
+<iframe width="800" height="500" frameborder="0" src="https://pythontutor.com/iframe-embed.html#code=print%28%22Hello%20World%22%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=1&heapPrimitives=nevernest&origin=opt-frontend.js&py=311&rawInputLstJSON=%5B%5D&textReferences=false" sandbox="allow-scripts" allowfullscreen> </iframe>
+
 </body>
 </html>
