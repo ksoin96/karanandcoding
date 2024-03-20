@@ -3,43 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skulpt Python on GitHub Pages</title>
-    <!-- Step 1: Include Skulpt Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/skulpt/2.0.2/skulpt.min.js"></script>
-    <!-- Step 2: Include Skulpt Stdlib -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/skulpt/2.0.2/skulpt-stdlib.js"></script>
+    <title>Skulpt Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://skulpt.org/js/skulpt.min.js" type="text/javascript"></script>
+    <script src="https://skulpt.org/js/skulpt-stdlib.js" type="text/javascript"></script>
 </head>
 <body>
-    <h1>Skulpt Python on GitHub Pages</h1>
-    <!-- Step 3: Write Python Code -->
-    <script type="text/python">
-        # Step 4: Write Python code to display "Hello, World!"
-        print("Hello World")
-    </script>
-    <!-- Step 5: Display Output -->
-    <div id="output"></div>
-    <!-- Step 6: Run Python Code -->
-    <script type="text/javascript">
-        // Capture the output of the Python code
-        var output = document.getElementById("output");
+    <h3>Python Code</h3>
+    <div>
+        <!-- Fixed "Hello World" program -->
+        <textarea id="python-code" cols="40" rows="10" readonly>print("Hello, World!")</textarea><br />
+        <button onclick="runPythonCode()">Run Python Code</button>
+    </div>
+    <div>
+        <h4>Output:</h4>
+        <pre id="output"></pre>
+    </div>
 
-        // Redirect Skulpt's print output to the HTML element
-        function builtinRead(x) {
+    <script type="text/javascript">
+        // Output function
+        function printOutput(text) { 
+            var output = document.getElementById("output"); 
+            output.textContent += text; 
+        } 
+
+        // Function to read builtin files
+        function readBuiltinFile(x) {
             if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
                 throw "File not found: '" + x + "'";
             return Sk.builtinFiles["files"][x];
         }
 
-        // Execute the Python code and display the output
-        Sk.configure({
-            output: function(text) {
-                output.innerHTML += text + "<br>";
+        // Function to run Python code
+        function runPythonCode() { 
+            var pythonCode = document.getElementById("python-code").value; 
+            var output = document.getElementById("output"); 
+            output.textContent = 'Output:\n'; 
+            Sk.pre = "output";
+            Sk.configure({output: printOutput, read: readBuiltinFile}); 
+            var promise = Sk.misceval.asyncToPromise(function() {
+                return Sk.importMainWithBody("<stdin>", false, pythonCode, true);
+            });
+            promise.then(function(mod) {
+                console.log('Success');
             },
-            read: builtinRead
-        });
-        Sk.misceval.asyncToPromise(function() {
-            return Sk.importMainWithBody("<stdin>", false, "print('Hello World')");
-        });
+            function(err) {
+                console.log(err.toString());
+            });
+        }
     </script>
 </body>
 </html>
+
