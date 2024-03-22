@@ -8,6 +8,7 @@
         #programBlock {
             float: left;
             width: 50%;
+            padding: 10px;
         }
         #outputBlock {
             float: left;
@@ -35,8 +36,11 @@
     <div id="outputBlock">
         <h2>Output</h2>
         <div id="terminal"></div>
-        <input type="text" id="inputField">
-        <button onclick="submitInput()">Submit</button>
+        <div>
+            <label for="inputField">Enter your number:</label>
+            <input type="text" id="inputField">
+            <button onclick="submitInput()">Submit</button>
+        </div>
     </div>
 
     <script>
@@ -66,4 +70,5 @@
     </script>
 </body>
 </html>
+
 
