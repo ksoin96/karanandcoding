@@ -1,0 +1,9 @@
+/* Add this CSS to center the book title */
+.python-resources {
+    text-align: center;
+}
+
+.book-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
