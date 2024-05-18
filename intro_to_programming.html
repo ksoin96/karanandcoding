@@ -74,11 +74,7 @@
 
 /* Added styles for the box and buttons */
 .box {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-top: 20px;
-  text-align: center;
+  display: none; /* Hide the box */
 }
 
 .buttons {
@@ -100,6 +96,21 @@
 
 .play-button:hover, .stop-button:hover {
   background-color: #45a049;
+}
+/* Style for the console-like area */
+#console {
+    width: 80%;
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    overflow-y: scroll;
+}
+/* Style for the textarea */
+#code {
+    width: 80%;
+    height: 200px;
+    margin-top: 20px;
 }
 </style>
 </head>
@@ -132,14 +143,28 @@
   </div> 
 </div>
 
-<!-- Box with "Hello World" and buttons -->
-<div class="box">
-  <p>print("Hello World")</p>
-  <div class="buttons">
-    <button class="play-button">Play</button>
-    <button class="stop-button">Stop</button>
-  </div>
-</div>
+<!-- Code section from the second HTML file -->
+<h1>Run Even or Odd Checker</h1>
+<textarea id="code">// Function to check if a number is even or odd
+function checkEvenOrOdd(number) {
+    if (number % 2 === 0) {
+        return "even";
+    } else {
+        return "odd";
+    }
+}
+
+// Call the function to check if the number is even or odd
+var userInput = prompt("Enter a number:");
+var number = parseInt(userInput);
+if (!isNaN(number)) {
+    var result = checkEvenOrOdd(number);
+    console.log("The number " + number + " is " + result + ".");
+} else {
+    console.log("Invalid input! Please enter a valid number.");
+}</textarea>
+<button onclick="runCode()">Run Code</button>
+<div id="console"></div>
 
 <script>
 /* Toggle between hiding and showing the computer science knowledge dropdown content */
@@ -164,6 +189,28 @@ window.onclick = function(e) {
     }
   }
 }
+
+function runCode() {
+    try {
+        // Get the code from the textarea
+        var code = document.getElementById("code").value;
+
+        // Clear the console-like area
+        var consoleDiv = document.getElementById("console");
+        consoleDiv.innerHTML = "";
+
+        // Redirect console.log to display output in the console-like area
+        console.log = function(message) {
+            consoleDiv.innerHTML += message + "<br>";
+        };
+
+        // Execute the code using eval
+        eval(code);
+    } catch (error) {
+        console.log("Error:", error.message);
+    }
+}
 </script>
+
 </body>
 </html>
