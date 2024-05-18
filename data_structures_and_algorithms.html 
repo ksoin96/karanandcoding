@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Search</title>
+  <style>
+    #output {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar-header {
+      float: left;
+      padding: 14px 16px;
+      color: white;
+    }
+
+    .navbar a {
+      float: left;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .dropdown {
+      float: left;
+      overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+      cursor: pointer;
+      font-size: 16px;  
+      border: none;
+      outline: none;
+      color: white;
+      padding: 14px 16px;
+      background-color: inherit;
+      font-family: inherit;
+      margin: 0;
+    }
+
+    .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+      background-color: red;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body style="background-color:white;">
+
+<div class="navbar">
+  <div class="navbar-header">Karan and Coding</div>
+  <a href="#home">Home</a>
+  <div class="dropdown">
+    <button class="dropbtn" onclick="myFunctionCS()">My Computer Science Knowledge
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" id="myDropdownCS">
+      <a href="intro_to_programming.html">Intro to Programming</a>
+      <a href="#">Object-Oriented Programming</a>  
+      <a href="data_structures_and_algorithms.html">Data Structures and Algorithms</a> <!-- Added link here -->
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn" onclick="myFunctionMath()">My Mathematical Knowledge
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" id="myDropdownMath">
+      <a href="#">Precalculus</a>
+      <a href="#">Calculus</a>  
+      <a href="#">Discrete Mathematics</a>
+      <a href="#">Linear Algebra</a>
+      <a href="#">Statistics</a>
+    </div>
+  </div> 
+</div>
+
+<textarea id="inputArray" rows="3" placeholder="Enter a sorted array (comma-separated values)"></textarea><br>
+<input type="number" id="targetValue" placeholder="Enter the target value"><br>
+<button onclick="runBinarySearch()">Run</button>
+<div id="output"></div>
+
+<script>
+  function binarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+    let output = "";
+
+    while (left <= right) {
+      let mid = Math.floor((left + right) / 2);
+
+      if (arr[mid] === target) {
+        output = `Target ${target} found at index ${mid}`;
+        break;
+      } else if (arr[mid] < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+
+    if (!output) {
+      output = `Target ${target} not found in the array.`;
+    }
+    
+    document.getElementById("output").innerText = output;
+  }
+
+  function runBinarySearch() {
+    let inputArray = document.getElementById("inputArray").value.split(",").map(Number);
+    let targetValue = parseInt(document.getElementById("targetValue").value);
+
+    binarySearch(inputArray, targetValue);
+  }
+  
+  /* Toggle between hiding and showing the computer science knowledge dropdown content */
+  function myFunctionCS() {
+    document.getElementById("myDropdownCS").classList.toggle("show");
+  }
+
+  /* Toggle between hiding and showing the mathematical knowledge dropdown content */
+  function myFunctionMath() {
+    document.getElementById("myDropdownMath").classList.toggle("show");
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(e) {
+    if (!e.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var d = 0; d < dropdowns.length; d++) {
+        var openDropdown = dropdowns[d];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+</script>
+</body>
+</html>
